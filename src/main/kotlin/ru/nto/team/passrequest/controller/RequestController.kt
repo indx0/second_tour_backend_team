@@ -1,7 +1,9 @@
-package ru.nto.team
+package ru.nto.team.passrequest.controller
 
 import org.springframework.web.bind.annotation.*
 import org.springframework.http.HttpStatus
+import ru.nto.team.CreateRequestBody
+import ru.nto.team.passrequest.service.RequestService
 
 // TODO: complete request API behavior, responses and errors.
 @RestController

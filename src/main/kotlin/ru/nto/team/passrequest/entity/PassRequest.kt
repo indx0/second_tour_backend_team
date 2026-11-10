@@ -1,5 +1,6 @@
-package ru.nto.team
+package ru.nto.team.passrequest.entity
 
+import ru.nto.team.staff.entity.Staff
 import java.time.LocalDateTime
 
 // TODO: JPA entity for pass_request, including a staff association and generated Long ID.

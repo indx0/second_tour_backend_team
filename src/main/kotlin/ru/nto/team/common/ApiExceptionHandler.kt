@@ -1,4 +1,4 @@
-package ru.nto.team
+package ru.nto.team.common
 
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*

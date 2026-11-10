@@ -1,6 +1,8 @@
-package ru.nto.team
+package ru.nto.team.staff.service
 
 import org.springframework.stereotype.Service
+import ru.nto.team.common.ApiException
+import ru.nto.team.ProfileDto
 
 @Service
 class StaffService {
