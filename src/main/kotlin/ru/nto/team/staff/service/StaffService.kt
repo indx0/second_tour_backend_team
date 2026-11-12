@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional
 import ru.nto.team.common.RequestValidation
 import ru.nto.team.common.exception.ApiException
 import ru.nto.team.staff.dto.ProfileDto
+import ru.nto.team.staff.entity.Staff
 import ru.nto.team.staff.repository.StaffRepository
 
 @Service
@@ -16,5 +17,11 @@ class StaffService(private val staffRepository: StaffRepository) {
         val prof = staffRepository.findByCode(code) ?: throw ApiException(401, "Unauthorized")
 
         return ProfileDto(prof.fullName)
+    }
+
+    fun getStaff(code: String): Staff {
+        RequestValidation.validateCode(code)
+        val prof = staffRepository.findByCode(code) ?: throw ApiException(400, "Unauthorized")
+        return prof
     }
 }
