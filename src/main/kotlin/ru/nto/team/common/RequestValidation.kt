@@ -18,7 +18,7 @@ object RequestValidation {
     private val dateVerifyRegex = Regex("[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}")
     private val phoneVerifyRegex = Regex("\\+7[0-9]{10}")
 
-    private val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
+    private val dateFormatter = DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ss")
         .withResolverStyle(ResolverStyle.STRICT)
 
     fun validateCode(code: String) {

@@ -40,7 +40,12 @@ class RequestService(
         }
     }
 
-    fun details(code: String, id: Long): RequestDetailsDto = throw ApiException(501, "Task not implemented")
+    fun details(code: String, id: Long): RequestDetailsDto {
+        val staff = staffService.getStaff(code)
+        val reqeust = repo.findByIdAndHostId(id, staff.id!!) ?: throw ApiException(404, "Request not found")
+
+        return reqeust.toDetails();
+    }
 
     @Transactional(readOnly = false)
     fun create(

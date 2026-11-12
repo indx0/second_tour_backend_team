@@ -21,7 +21,7 @@ class StaffService(private val staffRepository: StaffRepository) {
 
     fun getStaff(code: String): Staff {
         RequestValidation.validateCode(code)
-        val prof = staffRepository.findByCode(code) ?: throw ApiException(400, "Unauthorized")
+        val prof = staffRepository.findByCode(code) ?: throw ApiException(401, "Unauthorized")
         return prof
     }
 }
