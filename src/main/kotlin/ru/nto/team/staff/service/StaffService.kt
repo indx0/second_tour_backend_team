@@ -1,10 +1,20 @@
 package ru.nto.team.staff.service
 
 import org.springframework.stereotype.Service
-import ru.nto.team.common.ApiException
-import ru.nto.team.ProfileDto
+import org.springframework.transaction.annotation.Transactional
+import ru.nto.team.common.RequestValidation
+import ru.nto.team.common.exception.ApiException
+import ru.nto.team.staff.dto.ProfileDto
+import ru.nto.team.staff.repository.StaffRepository
 
 @Service
-class StaffService {
-    fun profile(code: String): ProfileDto = throw ApiException(501, "Task not implemented")
+@Transactional(readOnly = true)
+class StaffService(private val staffRepository: StaffRepository) {
+    fun profile(code: String): ProfileDto {
+        RequestValidation.validateCode(code)
+
+        val prof = staffRepository.findByCode(code) ?: throw ApiException(401, "Unauthorized")
+
+        return ProfileDto(prof.fullName)
+    }
 }
