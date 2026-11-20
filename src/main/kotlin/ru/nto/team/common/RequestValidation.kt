@@ -13,10 +13,12 @@ import java.time.format.DateTimeParseException
 import java.time.format.ResolverStyle
 
 // TODO: normalization, strict date parsing and collecting all available field errors.
+
 object RequestValidation {
     private val codeVerifyRegex = Regex("[A-Za-z0-9]{4}")
     private val dateVerifyRegex = Regex("[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}")
     private val phoneVerifyRegex = Regex("\\+7[0-9]{10}")
+    private val msk_zone: ZoneId = ZoneId.of("Europe/Moscow")
 
     private val dateFormatter = DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ss")
         .withResolverStyle(ResolverStyle.STRICT)
@@ -91,7 +93,7 @@ object RequestValidation {
             errors["purpose"] = "Цель должна содержать от 5 до 200 символов"
         }
 
-        val now = LocalDateTime.ofInstant(clock.instant(), clock.zone)
+        val now = LocalDateTime.ofInstant(clock.instant(), msk_zone)
 
         if (validFrom != null && validFrom.isBefore(now)) {
             errors["validFrom"] = "Начало не может быть раньше текущего времени"
