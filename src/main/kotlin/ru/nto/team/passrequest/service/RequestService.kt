@@ -14,6 +14,7 @@ import ru.nto.team.passrequest.repository.PassRequestRepository
 import ru.nto.team.staff.service.StaffService
 import java.time.Clock
 import java.time.LocalDateTime
+import java.time.ZoneId
 import java.time.temporal.ChronoUnit
 
 @Service
@@ -23,6 +24,8 @@ class RequestService(
     private val staffService: StaffService,
     private val clock: Clock,
 ) {
+
+    private val msk_zone: ZoneId = ZoneId.of("Europe/Moscow")
     fun list(code: String, status: String?): List<RequestListDto> {
         val staff = staffService.getStaff(code);
         val status = RequestValidation.parseStatus(status)
@@ -135,7 +138,7 @@ class RequestService(
     private fun now(): LocalDateTime {
         return LocalDateTime.ofInstant(
             clock.instant(),
-            clock.zone,
+            msk_zone,
         ).truncatedTo(ChronoUnit.SECONDS)
     }
 
